@@ -1,10 +1,10 @@
-# 🧪 Fabric RTI Demo for Live Surveys
+# Fabric RTI Demo for Live Surveys
 
-**Purpose**: A real-time interactive demo designed to kick off technical workshops with live attendee input and dynamic visualisation.
+**Summary**: A real-time interactive demo designed to kick off technical workshops with live attendee input and dynamic visualisation.
 
 ---
 
-## 📍 What Did I Create and Why?
+## 💡 What Did I Create and Why?
 
 In my Power BI "Dashboard in a Day" workshops, I wanted a way to engage attendees from the start and tailor the session to their interests and experience. This demo collects live input via Microsoft Forms and visualises it instantly in a dashboard using Real-Time Intelligence (RTI) in Microsoft Fabric. It makes for an engaging and stimulating demo, and is especially useful for presenters to quickly understand the needs and experience levels of large audiences, helping shape the session dynamically.
 
@@ -20,14 +20,14 @@ https://github.com/user-attachments/assets/e99298cc-7c48-4e77-ac28-c0f7a7a1effb
 2. A Logic App is triggered upon submission
 3. The Logic App pushes the data into a Fabric Eventstream
 4. The Eventstream processes and streams the data into a KQL database in an Eventhouse
-5. The data is visualised in real time on a RTI Dashboard in Fabric
+5. The data is visualised on a Real-Time Dashboard in Fabric
 
 <img width="675" height="229" alt="image" src="https://github.com/user-attachments/assets/b45e47d4-50f8-4b2e-baf0-261b0725db7a" />
 
 *Diagram: End-to-end flow of the RTI demo*
 
 ---
-## 🛠️ Pre-requisites
+## ✅ Pre-requisites
 
 - An Azure subscription to be able to spin up:
   - A Fabric Capacity
@@ -58,10 +58,10 @@ https://github.com/user-attachments/assets/e99298cc-7c48-4e77-ac28-c0f7a7a1effb
 <img width="1852" height="912" alt="image" src="https://github.com/user-attachments/assets/779983f9-599f-4951-90bf-d13c978b2e21" />
 
 
-### 🔹 Step 2: Create the EventHouse and KQL Database
+### 🔹 Step 2: Create the Eventhouse and KQL Database
 This is where your data is going to be streamed to and persisted
 
-- In a Fabric Workspace, select new item and create an EventHouse
+- In a Fabric Workspace, select new item and create an Eventhouse
 - Select the KQL Database that's been created on the left hand side and click the elipsis on 'Tables' to create a new table
 - Create a column using the GUI for each question/response that will be generated from the Form. You'll need these exact column names later on.
 
@@ -91,17 +91,17 @@ This will be the piece that takes data from Logic Apps to the Eventhouse, but we
     - Go back to your Logic App and paste the 'Connection string-primary key' into the 'Connection String' and then click 'Create New'
     - Under 'Event Hub Name', it may show an error. You need to dropdown, select custom value and then paste the 'Event hub name' that you copied earlier
     - Then select 'Content' from the advanced parameters dropdown
-    - In Content, you are now going to define the JSON that will be sent. Create a column name for each question input and then click the lighning symbol again each time to put the related dynamic parameter. For example mine looks like this (just replace <Form Parameter> with your own dynamic parameter):
-```
-    {
-      "PBIExperience": "<Form Parameter>",
-      "ReportBuildingExperience": "<Form Parameter>",
-      "ModellingExperience": "<Form Parameter>",
-      "ExcelExperience": "<Form Parameter>",
-      "TopicsOfInterest": "<Form Parameter>",
-      "LearningPlans": "<Form Parameter>",
-      "Role": "<Form Parameter>"
-    }
+    - In Content, you are now going to define the JSON that will be sent. Create a column name for each question input and then click the lightning symbol again each time to put the related dynamic parameter. For example mine looks like this (just replace <Form Parameter> with your own dynamic parameter):
+```json
+{
+  "PBIExperience": "<YOUR FORM PARAMETER>",
+  "ReportBuildingExperience": "<YOUR FORM PARAMETER>",
+  "ModellingExperience": "<YOUR FORM PARAMETER>",
+  "ExcelExperience": "<YOUR FORM PARAMETER>",
+  "TopicsOfInterest": "<YOUR FORM PARAMETER>",
+  "LearningPlans": "<YOUR FORM PARAMETER>",
+  "Role": "<YOUR FORM PARAMETER>"
+}
 ```
 
   - Save the Logic App
@@ -124,10 +124,10 @@ This will be the piece that takes data from Logic Apps to the Eventhouse, but we
 <img width="1849" height="913" alt="image" src="https://github.com/user-attachments/assets/fb8a26cf-556b-4e07-9dc2-5d9750e3c9d9" />
 
 
-### 🔹 Step 6: Create the real time dashboard
-Now data is streaming successfully into your Eventhouse, it's time to visualise it. Usually we turn to Power BI for anything to do with visuals, but Power BI is not really built for true real time, so instead we're going to use an RTI Dashboard. 
+### 🔹 Step 6: Create the Real-Time Dashboard
+Now data is streaming successfully into your Eventhouse, it's time to visualise it. Usually we turn to Power BI for anything to do with visuals, but Power BI is not really built for true real time, so instead we're going to use a Real-Time Dashboard. 
 > [!NOTE]
-> The visual capabilities in an RTI Dashboard are relatively basic. If you are looking to use the more advanced report functionality in Power BI, but still want a real time feel, then you could consider looking at Page Auto Refresh against DirectQuery, but note that this could potentially be an expensive and inefficient solution if designed poorly.
+> The visual capabilities in a Real-Time Dashboard are relatively basic. If you are looking to use the more advanced report functionality in Power BI, but still want a real time feel, then you could consider looking at Page Auto Refresh against DirectQuery, but note that this could potentially be an expensive and inefficient solution if designed poorly.
 
 - Open your Eventhouse and KQL Database
 - Click 'Real-Time Dashboard' in the top menu bar and give it a name
